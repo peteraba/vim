@@ -34,13 +34,19 @@ set hidden
 
 "Set the color scheme. Change this to your preference. 
 "Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
-colorscheme satori
+colorscheme molokai
+
+"Console workaround for colors
+set t_Co=256
 
 "Binding F2 and F3 to color schema switching
 "http://www.vim.org/scripts/script.php?script_id=1488
 map <silent><F3> :NEXTCOLOR<cr> 
 map <silent><F2> :PREVCOLOR<cr> 
 
+"Fixes for the Lovely molokai themee
+let g:molokai_original = 1
+let g:rehash256 = 1
 
 "Set font type and size. Depends on the resolution. Larger screens, prefer h20
 set guifont=Menlo:h14
@@ -249,4 +255,7 @@ call pathogen#infect()
 
 "Disable auto-downloading of vim-go dependencies
 let g:go_disable_autoinstall=1
+
+"Toggle Tagbar
+nmap <F8> :TagbarToggle<CR>
 
