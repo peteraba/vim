@@ -34,7 +34,7 @@ set hidden
 
 "Set the color scheme. Change this to your preference. 
 "Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
-colorscheme twilight
+colorscheme satori
 
 "Binding F2 and F3 to color schema switching
 "http://www.vim.org/scripts/script.php?script_id=1488
@@ -46,9 +46,9 @@ map <silent><F2> :PREVCOLOR<cr>
 set guifont=Menlo:h14
 
 "Tab stuff
-set tabstop=3
-set shiftwidth=3
-set softtabstop=3
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 
 "Show command in bottom right portion of the screen
@@ -215,7 +215,7 @@ nmap <leader>hm :cd ~/ <CR>
 nmap <leader>bv :bel vsp
 
 " Saves file when Vim window loses focus
-au FocusLost * :wa
+"au FocusLost * :wa
 
 " Backups
 set backupdir=~/.vim/tmp/backup// " backups
@@ -234,5 +234,13 @@ set showmatch " show matching brackets
 " print empty <a> tag
 map! ;h <a href=""></a><ESC>5hi
 
+" Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
+
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸·,eol:ǂ
+
+"Invisible character colors 
+highlight NonText guifg=#eeeeee
+highlight SpecialKey guifg=#eeeeee
 
