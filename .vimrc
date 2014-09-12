@@ -100,7 +100,7 @@ set mousehide
 "Shortcut to fold tags with leader (usually \) + ft
 nnoremap <leader>ft Vatzf
 
-" Create dictionary for custom expansions
+"Create dictionary for custom expansions
 set dictionary+=/Users/jeff_way/.vim/dict.txt
 
 "Opens a vertical split and switches over (\v)
@@ -109,7 +109,7 @@ nnoremap <leader>v <C-w>v<C-w>l
 "Split windows below the current window.
 set splitbelow              
 
-" session settings
+"session settings
 set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 
 "Set up an HTML5 template for all new .html files
@@ -139,7 +139,7 @@ autocmd BufEnter * cd %:p:h
 "Map code completion to , + tab
 imap <leader><tab> <C-x><C-o>
 
-" More useful command-line completion
+"More useful command-line completion
 set wildmenu
 
 "Auto-completion menu
@@ -168,7 +168,7 @@ nmap <C-Down> ddp
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
-" Source the vimrc file after saving it. This way, you don't have to reload Vim to see the changes.
+"Source the vimrc file after saving it. This way, you don't have to reload Vim to see the changes.
 if has("autocmd")
  augroup myvimrchooks
   au!
@@ -203,26 +203,26 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 iab teh the
 iab Teh The
 
-" Get to home dir easier
-" <leader>hm is easier to type than :cd ~
+"Get to home dir easier
+"<leader>hm is easier to type than :cd ~
 nmap <leader>hm :cd ~/ <CR>
 
-" Alphabetically sort CSS properties in file with :SortCSS
+"Alphabetically sort CSS properties in file with :SortCSS
 :command! SortCSS :g#\({\n\)\@<=#.,/}/sort
 
-" Shortcut to opening a virtual split to right of current pane
-" Makes more sense than opening to the left
+"Shortcut to opening a virtual split to right of current pane
+"Makes more sense than opening to the left
 nmap <leader>bv :bel vsp
 
-" Saves file when Vim window loses focus
+"Saves file when Vim window loses focus
 "au FocusLost * :wa
 
-" Backups
+"Backups
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap// " swap files
 set backup " enable backup
 
-" No more stretching for navigating files
+"No more stretching for navigating files
 "noremap h ;
 "noremap j h
 "noremap k gj
@@ -231,16 +231,22 @@ set backup " enable backup
 
 set showmatch " show matching brackets
 
-" print empty <a> tag
+"print empty <a> tag
 map! ;h <a href=""></a><ESC>5hi
 
-" Shortcut to rapidly toggle `set list`
+"Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
 
-" Use the same symbols as TextMate for tabstops and EOLs
+"Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸·,eol:ǂ
 
 "Invisible character colors 
 highlight NonText guifg=#eeeeee
 highlight SpecialKey guifg=#eeeeee
+
+"Enable pathogen plugin manager
+call pathogen#infect() 
+
+"Disable auto-downloading of vim-go dependencies
+let g:go_disable_autoinstall=1
 
