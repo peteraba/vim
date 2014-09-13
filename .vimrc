@@ -16,6 +16,57 @@ filetype plugin on
 filetype indent on
 syntax on
 
+"------------------------"
+"VUNDLE PLUGIN SETTINGS
+"------------------------"
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+"Snippet engine
+Plugin 'SirVer/ultisnips'
+
+"Snippets are separated from the engine.
+Plugin 'honza/vim-snippets'
+
+"Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsListSnippets="<c-l>"
+
+let g:UltiSnipsJumpForwardTrigger="<c-e>"
+let g:UltiSnipsJumpBackwardTrigger="<c-l>"
+
+" If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+
+" " The following are examples of different formats supported.
+" " Keep Plugin commands between vundle#begin/end.
+" " plugin on GitHub repo
+" Plugin 'tpope/vim-fugitive'
+" " plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" " Git plugin not hosted on GitHub
+" Plugin 'git://git.wincent.com/command-t.git'
+" " git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+" " The sparkup vim script is in a subdirectory of this repo called vim.
+" " Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" " Avoid a name conflict with L9
+" Plugin 'user/L9', {'name': 'newL9'}
+"
+" " All of your Plugins must be added before the following line
+call vundle#end()
+filetype plugin indent on
+" " To ignore plugin indent changes, instead use:
+" "filetype plugin on
+"----------------------------"
+"END OF VUNDLE PLUGIN SETTINGS
+"----------------------------"
+
 "Write the old file out when switching between files.
 set autowrite
 
@@ -36,17 +87,12 @@ set hidden
 "Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
 colorscheme molokai
 
-"Console workaround for colors
-set t_Co=256
-
-"Binding F2 and F3 to color schema switching
-"http://www.vim.org/scripts/script.php?script_id=1488
-map <silent><F3> :NEXTCOLOR<cr> 
-map <silent><F2> :PREVCOLOR<cr> 
-
-"Fixes for the Lovely molokai themee
+"Molokai settings
 let g:molokai_original = 1
 let g:rehash256 = 1
+
+"Having color schemes in cli
+set t_Co=256
 
 "Set font type and size. Depends on the resolution. Larger screens, prefer h20
 set guifont=Menlo:h14
@@ -107,7 +153,7 @@ set mousehide
 nnoremap <leader>ft Vatzf
 
 "Create dictionary for custom expansions
-set dictionary+=/Users/jeff_way/.vim/dict.txt
+set dictionary+=/home/peter/.vim/dict.txt
 
 "Opens a vertical split and switches over (\v)
 nnoremap <leader>v <C-w>v<C-w>l
@@ -121,19 +167,16 @@ set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 "Set up an HTML5 template for all new .html files
 "autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
 
-"Load the current buffer in Firefox - Mac specific.
-abbrev ff :! open -a firefox.app %:p<cr>
-
 "Map a change directory to the desktop - Mac specific
 nmap <leader>d :cd ~/Desktop<cr>:e.<cr>
 
 "Shortcut for editing  vimrc file in a new tab
 nmap <leader>ev :tabedit $MYVIMRC<cr>
 
-"Change zen coding plugin expansion key to shift + e
+"Change zen coding plugin expansion key to ctrl + e
 let g:user_zen_expandabbr_key = '<C-e>'
 
-"Faster shortcut for commenting. Requires T-Comment plugin
+" Faster shortcut for commenting. Requires T-Comment plugin
 map <leader>c <c-_><c-_>
 
 "Saves time; maps the spacebar to colon
@@ -182,24 +225,29 @@ if has("autocmd")
  augroup END
 endif
 
-" easier window navigation
+"Easier window navigation
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 
-"------------------------"
-"NERDTREE PLUGIN SETTINGS
-"------------------------"
-"Shortcut for NERDTreeToggle
-nmap <leader>nt :NERDTreeToggle <CR>
+"Easier window size changes
+nmap <C-+> <C-w>+
+nmap <C--> <C-w>-
 
-"Show hidden files in NerdTree
-let NERDTreeShowHidden=1
+"Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
 
-"autopen NERDTree and focus cursor in new document
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+"Use the same symbols as TextMate for tabstops and EOLs
+"set listchars=tab:▸·,eol:ǂ
+set listchars=eol:ǂ,tab:▸·,extends:>,precedes:<,trail:~
+
+"Invisible character colors 
+highlight NonText guifg=#eeeeee
+highlight SpecialKey guifg=#eeeeee
+
+"Default encoding should be utf-8
+set encoding=utf-8
 
 "Helpeful abbreviations
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -224,8 +272,8 @@ nmap <leader>bv :bel vsp
 "au FocusLost * :wa
 
 "Backups
-set backupdir=~/.vim/tmp/backup// " backups
-set directory=~/.vim/tmp/swap// " swap files
+set backupdir=/tmp/backup// " backups
+set directory=/tmp/swap// " swap files
 set backup " enable backup
 
 "No more stretching for navigating files
@@ -240,22 +288,67 @@ set showmatch " show matching brackets
 "print empty <a> tag
 map! ;h <a href=""></a><ESC>5hi
 
-"Shortcut to rapidly toggle `set list`
-nmap <leader>l :set list!<CR>
+"------------------------"
+"NERDTREE PLUGIN SETTINGS
+"------------------------"
+"Shortcut for NERDTreeToggle
+nmap <leader>nt :NERDTreeToggle <CR>
+nmap <C-n> :NERDTreeToggle<CR>
+"Show hidden files in NerdTree
+let NERDTreeShowHidden=1
 
-"Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸·,eol:ǂ
+"autopen NERDTree and focus cursor in new document
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
 
-"Invisible character colors 
-highlight NonText guifg=#eeeeee
-highlight SpecialKey guifg=#eeeeee
-
+"------------------------"
+"PATHOGEN PLUGIN SETTINGS
+"------------------------"
 "Enable pathogen plugin manager
 call pathogen#infect() 
 
+"------------------------"
+"TAGBAR PLUGIN SETTINGS
+"------------------------"
+"Toggle Tagbar
+nmap <F8> :TagbarToggle<CR>
+
+"------------------------"
+"VIM-GO PLUGIN SETTINGS
+"------------------------"
 "Disable auto-downloading of vim-go dependencies
 let g:go_disable_autoinstall=1
 
-"Toggle Tagbar
-nmap <F8> :TagbarToggle<CR>
+"Show a list of interfaces which is implemented by the type under your cursor with <leader>s
+au FileType go nmap <Leader>s <Plug>(go-implements)
+
+"Show type info for the word under your cursor with <leader>i
+au FileType go nmap <Leader>i <Plug>(go-info)
+
+"Open the relevant Godoc for the word under the cursor with <leader>gd or open it vertically with <leader>gv
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+
+"Or open the Godoc in browser
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+
+"Run commands, such as go run with <leader>r for the current file or go build
+"and go test for the current package with <leader>b and <leader>t. Display
+"a beautiful annotated source code to see which functions are covered with
+"<leader>c.
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+
+"Replace gd (Goto Declaration) for the word under your cursor (replaces current buffer):
+au FileType go nmap gd <Plug>(go-def)
+
+"Or open the definition/declaration in a new vertical, horizontal or tab for the word under your cursor:
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
+"Enable goimports to automatically insert import paths instead of gofmt
+let g:go_fmt_command = "goimports"
 

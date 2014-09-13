@@ -1,0 +1,2 @@
+ZoomWin.vba: call delete('/home/peter/.vim/plugin/ZoomWinPlugin.vim')|call delete('/home/peter/.vim/doc/ZoomWin.txt')|call delete('/home/peter/.vim/autoload/ZoomWin.vim')
+tcomment.vba: call delete('/home/peter/.vim/doc/tcomment.txt')|call delete('/home/peter/.vim/plugin/tcomment.vim')|call delete('/home/peter/.vim/autoload/tcomment.vim')
