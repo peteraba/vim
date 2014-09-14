@@ -1,10 +1,3 @@
-"Maintained by Peter Aba
-" peter@peteraba.com
-
-
-"Original maintained by: Jeffrey Way
-" jeffrey@jeffrey-way.com
-" http://net.tutsplus.com
 "
 
 "Forget compatibility with Vi. Who cares.
@@ -32,12 +25,15 @@ Plugin 'SirVer/ultisnips'
 "Snippets are separated from the engine.
 Plugin 'honza/vim-snippets'
 
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
 "Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsListSnippets="<c-l>"
 
-let g:UltiSnipsJumpForwardTrigger="<c-e>"
-let g:UltiSnipsJumpBackwardTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-r>"
+let g:UltiSnipsJumpBackwardTrigger="<c-w>"
 
 " If you want :UltiSnipsEdit to split your window.
 " let g:UltiSnipsEditSplit="vertical"
@@ -74,7 +70,8 @@ set autowrite
 set ruler
 
 "Want a different map leader than \
-"set mapleader = ",";
+let mapleader = ','
+
 
 "Ever notice a slight lag after typing the leader key + command? This lowers
 "the timeout.
@@ -182,8 +179,8 @@ map <leader>c <c-_><c-_>
 "Saves time; maps the spacebar to colon
 nmap <space> :
 
-"Automatically change current directory to that of the file in the buffer
-autocmd BufEnter * cd %:p:h
+"Automatically change current directory to that of the file in the buffer - CONFLICTS Fugitive
+"autocmd BufEnter * cd %:p:h
 
 "Map code completion to , + tab
 imap <leader><tab> <C-x><C-o>
@@ -287,6 +284,16 @@ set showmatch " show matching brackets
 
 "print empty <a> tag
 map! ;h <a href=""></a><ESC>5hi
+
+"Less horrible way of creating expand shortcuts (More at http://vimcasts.org/episodes/the-edit-command/ )
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
+
+"Making sure that .md is recognised as markdown, instead of Modula-2
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 "------------------------"
 "NERDTREE PLUGIN SETTINGS
